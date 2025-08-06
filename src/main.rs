@@ -24,9 +24,10 @@ fn main() -> ExitCode {
         eprintln!("    file-compressor [de]compress <source> <target>");
         ExitCode::FAILURE
     } else {
-        // TODO: figure this out
-        let [mode, source, destination] = args[ARG_START..=ARG_END];
-        parse::parse(mode, source, destination);
+        let mode:   &String = &args[ARG_START];
+        let source: &String = &args[ARG_START + 1];
+        let target: &String = &args[ARG_END];
+        parse::parse(mode, source, target);
         ExitCode::SUCCESS
     }
 }
