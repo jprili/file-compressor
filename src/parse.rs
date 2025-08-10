@@ -1,4 +1,3 @@
-use std::io;
 use std::fs::File;
 
 /**
@@ -21,9 +20,27 @@ pub fn parse(mode: &String, source: &String, target: &String) {
     decompress(&file, target);
 }
 
+/**
+ * Compress the source file.
+ * 1. Build Huffman tree from bytes.
+ * 2. Write tree to file.
+ * 3. Write encoded bits to file.
+ *
+ * @param file
+ * @param target
+ */
 fn compress(file: &File, target: &String) -> () {
 
 }
 
+/**
+ * Decompress the source file.
+ * 1. Parse tree.
+ * 2. Create file.
+ * 3. Decode bits into file.
+ *
+ * @param file
+ * @param target
+ */
 fn decompress(file: &File, target: &String) -> () {
 }
