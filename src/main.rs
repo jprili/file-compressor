@@ -7,6 +7,7 @@ use std::env;
 use std::process::ExitCode;
 
 mod parse;
+mod tree;
 
 const ARGUMENT_NUM: usize = 4;
 const ARG_START: usize = 1;
