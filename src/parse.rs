@@ -32,7 +32,6 @@ pub fn parse(mode: &String, source: &String, target: &String) {
  * @param target
  */
 fn compress(file: &File, target: &String) -> () {
-
 }
 
 /**
@@ -52,9 +51,8 @@ fn decompress(file: &File, target: &String) -> () {
  *
  * @param file
  */
-fn _build_tree(file: &File) -> Tree<Option<u8>> {
-   let tree: Tree<Option<u8>> = Tree::new(None);
-   tree
+fn _build_tree() {
+    let mut tree: Tree<Option<u8>> = Tree::new(None);
+    tree.print();
 }
-
 
