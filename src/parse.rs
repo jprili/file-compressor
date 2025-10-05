@@ -1,5 +1,6 @@
 use std::fs::File;
-use crate::tree::{ Node };
+use std::path::Path;
+use crate::tree::{ Tree };
 
 /**
  * Parse the arguments.
@@ -24,7 +25,8 @@ pub fn parse(mode: &String, source: &String, target: &String) {
 /**
  * Compress the source file.
  * 1. Build Huffman tree from bytes.
- * 2. Write tree to file.  3. Write encoded bits to file.
+ * 2. Write tree to file.
+ * 3. Write encoded bits to file.
  *
  * @param file
  * @param target
@@ -50,6 +52,9 @@ fn decompress(file: &File, target: &String) -> () {
  *
  * @param file
  */
-fn _build_tree(file: &File) -> Node {
-   Node::new(None)
+fn _build_tree(file: &File) -> Tree<Option<u8>> {
+   let tree: Tree<Option<u8>> = Tree::new(None);
+   tree
 }
+
+
