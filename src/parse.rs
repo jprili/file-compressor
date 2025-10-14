@@ -50,17 +50,14 @@ fn compress(file: &File, target: &String) -> () {
 fn decompress(file: &File, target: &String) -> () {
 }
 
-/**
- * Build a Huffman tree from the file's bytes.
- *
- * @param file
- */
+// Build a Huffman tree from the file's bytes.
 fn _build_tree(file: &File) -> Tree<Option<u8>>{
     let mut tree: Tree<Option<u8>> = Tree::new(None);
     let map = _get_character_frequencies(file);
     tree
 }
 
+// Obtain a histogram of all the character frequencies.
 fn _get_character_frequencies(file: &File) -> HashMap<char, u32> {
     let mut reader = BufReader::new(file); 
     let mut map: HashMap<char, u32>  = HashMap::new();
@@ -72,19 +69,18 @@ fn _get_character_frequencies(file: &File) -> HashMap<char, u32> {
         .unwrap();
 
     while read_bytes > 0usize {
-        if let Some(key) = map.get_mut(&(bytes[0] as char)) {
+        let char_key: char = bytes[0] as char;
+        if let Some(key) = map.get_mut(&char_key) {
             *key = *key + 1;
         } else {
             map.insert(
-                bytes[0] as char,
+                char_key,
                 0
             );
         }
 
         read_bytes = reader.read(&mut bytes).ok().unwrap();
     }
-
-    println!("{:?}", map);
     map
 }
 
