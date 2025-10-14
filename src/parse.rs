@@ -1,5 +1,8 @@
 use std::fs::File;
 use std::path::Path;
+use std::collections::HashMap;
+use std::io::{ Read, BufReader };
+
 use crate::tree::{ Tree };
 
 /**
@@ -32,6 +35,7 @@ pub fn parse(mode: &String, source: &String, target: &String) {
  * @param target
  */
 fn compress(file: &File, target: &String) -> () {
+    let tree = _build_tree(file);
 }
 
 /**
@@ -51,8 +55,36 @@ fn decompress(file: &File, target: &String) -> () {
  *
  * @param file
  */
-fn _build_tree() {
+fn _build_tree(file: &File) -> Tree<Option<u8>>{
     let mut tree: Tree<Option<u8>> = Tree::new(None);
-    tree.print();
+    let map = _get_character_frequencies(file);
+    tree
+}
+
+fn _get_character_frequencies(file: &File) -> HashMap<char, u32> {
+    let mut reader = BufReader::new(file); 
+    let mut map: HashMap<char, u32>  = HashMap::new();
+    let mut bytes      = [0; 1];
+
+    let mut read_bytes: usize = reader
+        .read(&mut bytes)
+        .ok()
+        .unwrap();
+
+    while read_bytes > 0usize {
+        if let Some(key) = map.get_mut(&(bytes[0] as char)) {
+            *key = *key + 1;
+        } else {
+            map.insert(
+                bytes[0] as char,
+                0
+            );
+        }
+
+        read_bytes = reader.read(&mut bytes).ok().unwrap();
+    }
+
+    println!("{:?}", map);
+    map
 }
 
