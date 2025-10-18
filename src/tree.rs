@@ -2,7 +2,7 @@ use std::fmt::{ Debug };
 
 type TreePtr<T> = Option<Box<Tree<T>>>;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Tree<T: Debug> {
     pub data: T,
     pub left: TreePtr<T>,

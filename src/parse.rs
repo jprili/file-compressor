@@ -35,7 +35,11 @@ pub fn parse(mode: &String, source: &String, target: &String) {
  * @param target
  */
 fn compress(file: &File, target: &String) -> () {
-    let tree = _build_tree(file);
+    let map = _get_character_frequencies(file).clone();
+    let tree = _build_tree(
+        map.clone(), 
+        &Tree::new(None as Option<u32>)
+    );
 }
 
 /**
@@ -51,17 +55,23 @@ fn decompress(file: &File, target: &String) -> () {
 }
 
 // Build a Huffman tree from the file's bytes.
-fn _build_tree(file: &File) -> Tree<Option<u8>>{
-    let mut tree: Tree<Option<u8>> = Tree::new(None);
-    let map = _get_character_frequencies(file);
-    tree
+fn _build_tree(
+        map: HashMap<usize, u32>,
+        tree: &Tree<Option<u32>>
+    ) -> Tree<Option<u32>>{
+    if (map).is_empty() {
+        (*tree).clone()
+    } else {
+        todo!();
+    }
 }
 
+
 // Obtain a histogram of all the character frequencies.
-fn _get_character_frequencies(file: &File) -> HashMap<char, u32> {
+fn _get_character_frequencies(file: &File) -> HashMap<usize, u32> {
     let mut reader = BufReader::new(file); 
-    let mut map: HashMap<char, u32>  = HashMap::new();
-    let mut bytes      = [0; 1];
+    let mut map: HashMap<usize, u32>  = HashMap::new();
+    let mut bytes = [0; 1];
 
     let mut read_bytes: usize = reader
         .read(&mut bytes)
@@ -69,7 +79,7 @@ fn _get_character_frequencies(file: &File) -> HashMap<char, u32> {
         .unwrap();
 
     while read_bytes > 0usize {
-        let char_key: char = bytes[0] as char;
+        let char_key: usize = bytes[0] as usize;
         if let Some(key) = map.get_mut(&char_key) {
             *key = *key + 1;
         } else {
